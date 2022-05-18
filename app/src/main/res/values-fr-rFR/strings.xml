@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Entrevoisins</string>
+    <string name="tab_neighbour_title">Mes voisins</string>
+    <string name="tab_favorites_title">Favoris</string>
+    <string name="activity_new_neighbour">Nouveau voisin</string>
+    <string name="title_About_Me">A propos de moi</string>
+</resources>

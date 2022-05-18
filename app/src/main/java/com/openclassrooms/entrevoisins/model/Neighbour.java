@@ -25,6 +25,8 @@ public class Neighbour {
     /** About me */
     private String aboutMe;
 
+    private Boolean isFavorite;
+
     /**
      * Constructor
      * @param id
@@ -39,6 +41,7 @@ public class Neighbour {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.aboutMe = aboutMe;
+        this.isFavorite = false;
     }
 
     public long getId() {

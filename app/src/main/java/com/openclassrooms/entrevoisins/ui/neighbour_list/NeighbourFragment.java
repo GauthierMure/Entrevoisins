@@ -1,11 +1,13 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +62,18 @@ public class NeighbourFragment extends Fragment {
      */
     private void initList() {
         mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours));
+        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, new MyNeighbourRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Neighbour neighbour) {
+                Intent intent = new Intent(getActivity(),NeighbourInfoActivity.class);
+                intent.putExtra("name",neighbour.getName());
+                intent.putExtra("address",neighbour.getAddress());
+                intent.putExtra("phone",neighbour.getPhoneNumber());
+                intent.putExtra("avatar",neighbour.getAvatarUrl());
+                intent.putExtra("description",neighbour.getAboutMe());
+                getActivity().startActivity(intent);
+            }
+        }));
     }
 
     @Override
@@ -90,4 +103,7 @@ public class NeighbourFragment extends Fragment {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
     }
+
+
+
 }
