@@ -23,7 +23,7 @@ public class NeighbourInfoActivity extends AppCompatActivity {
     private ImageButton mReturnIBtn;
     private Intent intent;
     private NeighbourApiService mApiService;
-    private int position;
+    private Long position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class NeighbourInfoActivity extends AppCompatActivity {
     }
 
     private void setFavorite() {
-        Neighbour neighbour = mApiService.getNeighbour(position);
+        Neighbour neighbour = mApiService.getNeighbourFromId(position);
         if (neighbour.getFavorite()){
             mApiService.removeFavoriteNeighbour(position);
             mFavoriteFBtn.setImageResource(R.drawable.ic_goldenstar);
@@ -69,13 +69,13 @@ public class NeighbourInfoActivity extends AppCompatActivity {
     }
 
     private void setContent() {
-        position = intent.getIntExtra("position",-1);
-        mNameTv.setText(mApiService.getNeighbour(position).getName());
-        mAddressTv.setText(mApiService.getNeighbour(position).getAddress());
-        mPhoneTv.setText(mApiService.getNeighbour(position).getPhoneNumber());
-        mAbouMeTv.setText(mApiService.getNeighbour(position).getAboutMe());
-        Glide.with(this).load(mApiService.getNeighbour(position).getAvatarUrl()).placeholder(R.drawable.ic_account).into(mAvatarIv);
-        if (mApiService.getNeighbour(position).getFavorite()){
+        position = intent.getLongExtra("position",-1);
+        mNameTv.setText(mApiService.getNeighbourFromId(position).getName());
+        mAddressTv.setText(mApiService.getNeighbourFromId(position).getAddress());
+        mPhoneTv.setText(mApiService.getNeighbourFromId(position).getPhoneNumber());
+        mAbouMeTv.setText(mApiService.getNeighbourFromId(position).getAboutMe());
+        Glide.with(this).load(mApiService.getNeighbourFromId(position).getAvatarUrl()).placeholder(R.drawable.ic_account).into(mAvatarIv);
+        if (mApiService.getNeighbourFromId(position).getFavorite()){
             mFavoriteFBtn.setImageResource(R.drawable.ic_goldenfullstar);
         }
     }

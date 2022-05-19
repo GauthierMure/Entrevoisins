@@ -21,10 +21,15 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
-public class NeighbourFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link FavoriteNeighbourFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class FavoriteNeighbourFragment extends Fragment {
 
     private NeighbourApiService mApiService;
     private List<Neighbour> mNeighbours;
@@ -35,8 +40,8 @@ public class NeighbourFragment extends Fragment {
      * Create and return a new instance
      * @return @{@link NeighbourFragment}
      */
-    public static NeighbourFragment newInstance() {
-        NeighbourFragment fragment = new NeighbourFragment();
+    public static FavoriteNeighbourFragment newInstance() {
+        FavoriteNeighbourFragment fragment = new FavoriteNeighbourFragment();
         return fragment;
     }
 
@@ -61,8 +66,17 @@ public class NeighbourFragment extends Fragment {
      * Init the List of neighbours
      */
     private void initList() {
-        mNeighbours = mApiService.getNeighbours();
-        mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, new MyNeighbourRecyclerViewAdapter.OnItemClickListener() {
+        List<Neighbour> Neighbours = mApiService.getNeighbours();
+        mNeighbours = new ArrayList<Neighbour>();
+        for (int i=0;i<Neighbours.size();i++){
+            if (Neighbours.get(i).getFavorite() == true){
+                mNeighbours.add(Neighbours.get(i));
+                Log.i("ajout",Neighbours.get(i).getName()+" ajouté");
+            }else{
+                Log.i("ajout",Neighbours.get(i).getName()+" refusé");
+            }
+        }
+        mRecyclerView.setAdapter(new MyFavoriteNeighbourRecyclerViewAdapter(mNeighbours, new MyFavoriteNeighbourRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(Neighbour neighbour) {
                 Intent intent = new Intent(getActivity(),NeighbourInfoActivity.class);
@@ -99,7 +113,4 @@ public class NeighbourFragment extends Fragment {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
     }
-
-
-
 }

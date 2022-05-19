@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,25 +22,24 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
-
+public class MyFavoriteNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteNeighbourRecyclerViewAdapter.ViewHolder>{
     private final List<Neighbour> mNeighbours;
-    private OnItemClickListener mItemListener;
+    private MyFavoriteNeighbourRecyclerViewAdapter.OnItemClickListener mItemListener;
 
-    public MyNeighbourRecyclerViewAdapter(List<Neighbour> items, OnItemClickListener itemClickListener) {
+    public MyFavoriteNeighbourRecyclerViewAdapter(List<Neighbour> items, MyFavoriteNeighbourRecyclerViewAdapter.OnItemClickListener itemClickListener) {
         mNeighbours = items;
         mItemListener = itemClickListener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyFavoriteNeighbourRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_neighbour, parent, false);
-        return new ViewHolder(view);
+        return new MyFavoriteNeighbourRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final MyFavoriteNeighbourRecyclerViewAdapter.ViewHolder holder, int position) {
         Neighbour neighbour = mNeighbours.get(position);
         holder.mNeighbourName.setText(neighbour.getName());
         Glide.with(holder.mNeighbourAvatar.getContext())

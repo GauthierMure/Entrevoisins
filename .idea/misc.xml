@@ -12,7 +12,9 @@
         <entry key="app/src/main/res/layout/activity_list_neighbour.xml" value="0.5479166666666667" />
         <entry key="app/src/main/res/layout/activity_neighbour_info.xml" value="0.26646403242147926" />
         <entry key="app/src/main/res/layout/activity_neighbour_info_2.xml" value="0.26646403242147926" />
+        <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/layout/fragment_neighbour.xml" value="0.5479166666666667" />
+        <entry key="app/src/main/res/layout/fragment_neighbour_list.xml" value="0.5479166666666667" />
       </map>
     </option>
   </component>

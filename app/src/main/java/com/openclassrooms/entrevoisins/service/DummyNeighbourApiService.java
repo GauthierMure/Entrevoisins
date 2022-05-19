@@ -38,18 +38,32 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     }
 
     /**
-     * @param position
+     * @param id
+     * @return
      */
     @Override
-    public Neighbour getNeighbour(int position){return neighbours.get(position);}
-
-    @Override
-    public void addFavoriteNeighbour(int position) {
-        neighbours.get(position).setFavorite(true);
+    public Neighbour getNeighbourFromId(Long id) {
+        for (int i = 0; i<neighbours.size();i++){
+            if (neighbours.get(i).getId() == id){
+                return neighbours.get(i);
+            }
+        }
+        return null;
     }
 
+    /**
+     * @param id
+     */
     @Override
-    public void removeFavoriteNeighbour(int position) {
-        neighbours.get(position).setFavorite(false);
+    public void addFavoriteNeighbour(Long id) {
+        getNeighbourFromId(id).setFavorite(true);
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void removeFavoriteNeighbour(Long id) {
+        getNeighbourFromId(id).setFavorite(false);
     }
 }
