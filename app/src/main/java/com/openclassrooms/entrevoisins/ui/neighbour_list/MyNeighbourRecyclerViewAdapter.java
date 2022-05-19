@@ -55,7 +55,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         });
 
         holder.itemView.setOnClickListener(view -> {
-            mItemListener.OnItemClick(mNeighbours.get(position));
+            mItemListener.OnItemClick(position);
         });
     }
 
@@ -79,6 +79,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     }
 
     public interface OnItemClickListener {
-        void OnItemClick(Neighbour neighbour);
+        void OnItemClick(int Position);
     }
 }

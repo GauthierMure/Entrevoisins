@@ -5,24 +5,32 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 public class NeighbourInfoActivity extends AppCompatActivity {
 
     private TextView mNameTv, mAddressTv, mPhoneTv, mAbouMeTv, mMailTv;
     private ImageView mAvatarIv;
-    private FloatingActionButton mReturnFBtn, mFavoriteFBtn;
+    private FloatingActionButton mFavoriteFBtn;
+    private ImageButton mReturnIBtn;
     private Intent intent;
+    private NeighbourApiService mApiService;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_info);
         intent = this.getIntent();
+        mApiService = DI.getNeighbourApiService();
         init();
     }
 
@@ -32,22 +40,45 @@ public class NeighbourInfoActivity extends AppCompatActivity {
         mPhoneTv = findViewById(R.id.phoneTv);
         mAbouMeTv = findViewById(R.id.aboutMeTv);
         mAvatarIv = findViewById(R.id.avatarIv);
-        mReturnFBtn = findViewById(R.id.returnFBtn);
+        mReturnIBtn = findViewById(R.id.returnIBtn);
         mFavoriteFBtn = findViewById(R.id.favoriteFBtn);
         setContent();
-        mReturnFBtn.setOnClickListener(new View.OnClickListener() {
+        mReturnIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        mFavoriteFBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFavorite();
+            }
+        });
+    }
+
+    private void setFavorite() {
+        Neighbour neighbour = mApiService.getNeighbour(position);
+        if (neighbour.getFavorite()){
+            mApiService.removeFavoriteNeighbour(position);
+            mFavoriteFBtn.setImageResource(R.drawable.ic_goldenstar);
+        }else{
+            mApiService.addFavoriteNeighbour(position);
+            mFavoriteFBtn.setImageResource(R.drawable.ic_goldenfullstar);
+        }
     }
 
     private void setContent() {
-        mNameTv.setText(intent.getStringExtra("name"));
-        mAddressTv.setText(intent.getStringExtra("address"));
-        mPhoneTv.setText(intent.getStringExtra("phone"));
-        mAbouMeTv.setText(intent.getStringExtra("description"));
-        Glide.with(this).load(intent.getStringExtra("avatar")).placeholder(R.drawable.ic_account).into(mAvatarIv);
+        position = intent.getIntExtra("position",-1);
+        mNameTv.setText(mApiService.getNeighbour(position).getName());
+        mAddressTv.setText(mApiService.getNeighbour(position).getAddress());
+        mPhoneTv.setText(mApiService.getNeighbour(position).getPhoneNumber());
+        mAbouMeTv.setText(mApiService.getNeighbour(position).getAboutMe());
+        Glide.with(this).load(mApiService.getNeighbour(position).getAvatarUrl()).placeholder(R.drawable.ic_account).into(mAvatarIv);
+        if (mApiService.getNeighbour(position).getFavorite()){
+            mFavoriteFBtn.setImageResource(R.drawable.ic_goldenfullstar);
+        }
     }
+
+
 }

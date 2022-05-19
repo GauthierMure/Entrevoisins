@@ -64,13 +64,9 @@ public class NeighbourFragment extends Fragment {
         mNeighbours = mApiService.getNeighbours();
         mRecyclerView.setAdapter(new MyNeighbourRecyclerViewAdapter(mNeighbours, new MyNeighbourRecyclerViewAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(Neighbour neighbour) {
+            public void OnItemClick(int position) {
                 Intent intent = new Intent(getActivity(),NeighbourInfoActivity.class);
-                intent.putExtra("name",neighbour.getName());
-                intent.putExtra("address",neighbour.getAddress());
-                intent.putExtra("phone",neighbour.getPhoneNumber());
-                intent.putExtra("avatar",neighbour.getAvatarUrl());
-                intent.putExtra("description",neighbour.getAboutMe());
+                intent.putExtra("position",position);
                 getActivity().startActivity(intent);
             }
         }));
