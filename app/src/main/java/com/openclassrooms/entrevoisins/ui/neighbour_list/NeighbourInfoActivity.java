@@ -29,6 +29,8 @@ public class NeighbourInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_info);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
         intent = this.getIntent();
         mApiService = DI.getNeighbourApiService();
         init();
