@@ -40,6 +40,7 @@ public class NeighbourInfoActivity extends AppCompatActivity {
         mNameTv = findViewById(R.id.nameTv);
         mAddressTv = findViewById(R.id.locationTv);
         mPhoneTv = findViewById(R.id.phoneTv);
+        mMailTv = findViewById(R.id.mailTv);
         mAbouMeTv = findViewById(R.id.aboutMeTv);
         mAvatarIv = findViewById(R.id.avatarIv);
         mReturnIBtn = findViewById(R.id.returnIBtn);
@@ -75,6 +76,7 @@ public class NeighbourInfoActivity extends AppCompatActivity {
         mNameTv.setText(mApiService.getNeighbourFromId(position).getName());
         mAddressTv.setText(mApiService.getNeighbourFromId(position).getAddress());
         mPhoneTv.setText(mApiService.getNeighbourFromId(position).getPhoneNumber());
+        mMailTv.setText(mApiService.getNeighbourFromId(position).getURL());
         mAbouMeTv.setText(mApiService.getNeighbourFromId(position).getAboutMe());
         Glide.with(this).load(mApiService.getNeighbourFromId(position).getAvatarUrl()).placeholder(R.drawable.ic_account).into(mAvatarIv);
         if (mApiService.getNeighbourFromId(position).getFavorite()){

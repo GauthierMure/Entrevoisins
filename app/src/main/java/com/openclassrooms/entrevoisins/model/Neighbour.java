@@ -22,6 +22,8 @@ public class Neighbour {
     /** Phone number */
     private String phoneNumber;
 
+    private String URL;
+
     /** About me */
     private String aboutMe;
 
@@ -40,6 +42,7 @@ public class Neighbour {
         this.avatarUrl = avatarUrl;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.URL = "https://www.facebook.com";
         this.aboutMe = aboutMe;
         this.isFavorite = false;
     }
@@ -98,6 +101,14 @@ public class Neighbour {
 
     public void setFavorite(Boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     @Override
